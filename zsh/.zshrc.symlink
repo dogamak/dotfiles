@@ -1,6 +1,6 @@
 source $HOME/.dotfile_path
 
-export ZSH=$DOTFILES_ROOT/zsh/.oh-my-zsh
+export ZSH=$DOTFILES_ROOT/zsh/.oh-my-zsh.symlink
 
 ZSH_THEME="awesomepanda"
 
