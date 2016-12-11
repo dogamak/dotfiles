@@ -2,7 +2,7 @@
 
 ;; It would be nice to have these loaded from ~/.emacs.d/init.el
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("maramalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("maramalade" . "https://marmalade-repo.org/packages/"))
 
 (package-initialize)
 
