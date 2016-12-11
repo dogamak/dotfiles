@@ -1,4 +1,4 @@
-URxvt.font: xft:Source Code Pro:size=15
+URxvt.font: xft:Source Code Pro:pixelsize=19
 URxvt.scrollBar: false
 
 ! Solarized color scheme for the X Window System
