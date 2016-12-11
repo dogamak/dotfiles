@@ -14,7 +14,7 @@
 ;; Set up ELPA and Marmelade repositories
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("maramlade" . "https://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("maramalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 ;; Set up rust auto completition
