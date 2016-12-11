@@ -13,7 +13,7 @@ For now these programs include:
 ## Installation
 To install the dotifles start by cloning the repository somewhere.
 ```shell
-$ git clone git@github.com:dogamak/dotfiles.git
+$ git clone https://github.com/dogamak/dotfiles.git
 ```
 Creating symlinks and doing additional configuration is handled by the `bootstrap.sh` script. It will create symlinks to the dotfiles provided in the repo into your home directory.
 Additionally emacs packages listed in `emacs/install-packages.el` are installed or updated.
