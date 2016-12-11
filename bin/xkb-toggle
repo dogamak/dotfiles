@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CURRENT=`setxkbmap -query|sed -n '/^layout:/s/^layout:\s*\(.\+\)$/\1/p'`
+
+if [[ "$CURRENT" == "fi" ]]; then
+    NEW='us'
+else
+    NEW='fi'
+fi
+
+setxkbmap -layout "$NEW"
+
+echo "Sitched from keyboard layout '$CURRENT' to '$NEW'"
