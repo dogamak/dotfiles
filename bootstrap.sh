@@ -67,7 +67,7 @@ sym_link() {
     fi
 }
 
-find . -name \*.symlink|sed 's_^./\([^/]\+\)/\(.\+\).symlink$_'$(pwd)'/\1/\2.symlink\n'$HOME'/\2_' > /tmp/symlinks;
+find . -name \*.symlink -not -path \*.git\*|sed 's_^./\([^/]\+\)/\(.\+\).symlink$_'$(pwd)'/\1/\2.symlink\n'$HOME'/\2_' > /tmp/symlinks;
 
 local skip_all=false overwrite_all=false backup_all=false
 
@@ -79,7 +79,7 @@ while IFS= read -r source <&$symlink_fd; do
     sym_link "${source}" "${target}"
 done
 
-for installer in `find $(pwd) -name 'install.sh'`; do
+for installer in `find $(pwd) -maxdepth 2 -name 'install.sh'`; do
     installer=${installer:A}
     echo "$fg[yellow]>> Running setup script for '${installer:h:t}'$fg[default]";
     cd "${installer:h}";
