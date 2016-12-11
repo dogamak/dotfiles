@@ -56,7 +56,7 @@ sym_link() {
 		echo "$fg[red]>> Deleted '$target'$fg[default]"
 	    fi
 
-	    echo "$fg[green]>> Linked '$source' to '$target'$fg[default]"
+	    echo "$fg[green]>> Linked '$source'\n       to '$target'$fg[default]"
 	    
 	    mkdir -p "${target:h}"
 	    ln -s "$source" "$target"
@@ -67,8 +67,11 @@ sym_link() {
     fi
 }
 
-find . -name \*.symlink -not -path \*.git\*|sed 's_^./\([^/]\+\)/\(.\+\).symlink$_'$(pwd)'/\1/\2.symlink\n'$HOME'/\2_' > /tmp/symlinks;
-
+{
+    cd $DOTFILES_ROOT;
+    find . -name \*.symlink -not -path \*.git\*|sed 's_^./\([^/]\+\)/\(.\+\).symlink$_'$(pwd)'/\1/\2.symlink\n'$HOME'/\2_' > /tmp/symlinks;
+}
+    
 local skip_all=false overwrite_all=false backup_all=false
 
 exec {symlink_fd}</tmp/symlinks;
@@ -79,7 +82,7 @@ while IFS= read -r source <&$symlink_fd; do
     sym_link "${source}" "${target}"
 done
 
-for installer in `find $(pwd) -maxdepth 2 -name 'install.sh'`; do
+for installer in `find $DOTFILES_ROOT -maxdepth 2 -name 'install.sh'`; do
     installer=${installer:A}
     echo "$fg[yellow]>> Running setup script for '${installer:h:t}'$fg[default]";
     cd "${installer:h}";
