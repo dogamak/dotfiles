@@ -11,7 +11,7 @@ For now these programs include:
 - racer
 
 ## Installation
-To install the dotifles start by cloning the repository somewhere.
+To install the dotfiles start by cloning the repository somewhere.
 ```shell
 $ git clone https://github.com/dogamak/dotfiles.git
 ```

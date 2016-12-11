@@ -10,4 +10,4 @@ fi
 
 setxkbmap -layout "$NEW"
 
-echo "Sitched from keyboard layout '$CURRENT' to '$NEW'"
+echo "Switched from keyboard layout '$CURRENT' to '$NEW'"
