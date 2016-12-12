@@ -25,6 +25,10 @@
 (add-to-list 'package-archives '("maramalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
+;; Enable evil-mode by default
+(require 'evil)
+(evil-mode 1)
+
 ;; Set up rust auto completition
 (setq racer-rust-src-path "/home/dogamak/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
 (add-hook 'rust-mode-hook #'racer-mode)
@@ -46,7 +50,7 @@
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
  '(package-selected-packages
    (quote
-    (toml-mode solarized-theme racer rust-mode company-racer company))))
+    (evil toml-mode solarized-theme racer rust-mode company-racer company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
