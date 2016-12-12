@@ -10,7 +10,10 @@
       '(
 	company
 	evil
+	helm
+	helm-projectile
 	magit
+	projectile
 	racer
 	rust-mode
 	solarized-theme
