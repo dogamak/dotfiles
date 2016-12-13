@@ -1,0 +1,106 @@
+#!/usr/bin/zsh
+
+autoload -U colors
+colors
+
+color () {
+    local color no_newline
+    if [[ "$1" == "-n" ]]
+    then
+	no_newline="-n"
+	color="$2"
+	shift
+    else
+	color="$1"
+    fi
+    shift
+    
+    echo $no_newline "$fg[$color]$@$fg[default]"
+}
+
+country_name() {
+    case "$1"; in
+	de)
+	    echo -n "Germany";;
+	se)
+	    echo -n "Sweden";;
+	*)
+	    echo -n "Unknown";;
+    esac
+}
+
+config_for_country() {
+    nmcli c|sed -n "/^Mullvad_$1/p"
+}
+
+current_config() {
+    nmcli|sed -n 's/^\(.\+\) VPN connection$/\1/p'
+}
+
+current_country() {
+    nmcli|sed -n 's/^.\+_\(.\+\) VPN connection$/\1/p'
+}
+
+disconnect_vpn() {
+    color yellow ">> Disconnecting from $(current_country) ($(country_name $(current_country)))"
+    nmcli c d $(current_config) > /dev/null
+}
+
+if [[ "$1" == "-h" || "$1" == "-help" || "$1" == "--help" ]]
+then
+    echo "Script for connecting and disconnecting to VPN."
+    echo "Usage: $0 [--help] [d(own)?|<country_code>]"
+    echo ""
+    echo "         --help  Display this help screen"
+    echo "           down  Disconnect from VPN"
+    echo " <country_code>  Connect to VPN using server in specified country."
+    echo ""
+    echo "Without any arguments displays the currently connected VPN server"
+    echo "or if not connected to any, displays the lisf of availiable servers."
+    exit 0
+fi
+
+
+if [[ "$#" -eq "0" ]]
+then
+    COUNTRY=$(current_country)
+
+    if [[ ! -z "$COUNTRY" ]]
+    then
+	echo "Connected via $(country_name $COUNTRY)"
+    else
+	echo "VPN not enabled, following configurations availiable:"
+	CONFIGS=`nmcli c|sed -n '/Mullvad/s/^Mullvad_\([a-z]\+\).*$/\1/p'`
+	for config in $CONFIGS; do
+	    echo -n " - $config ($(country_name $config))";
+	done
+    fi
+    exit 0
+fi
+
+if [[ "$1" == "down" || "$1" == "d" ]]
+then
+    if [[ -z "$(current_config)" ]]
+    then
+	color red "VPN not connected!"
+	exit 1
+    else
+	disconnect_vpn
+	exit 0
+    fi
+fi
+
+if [[ -z "$(config_for_country $1)" ]]
+then
+    color red "No configuration for $1 ($(country_name $1))"
+    exit 1
+fi
+
+if [[ ! -z "$(current_config)" ]]
+then
+   disconnect_vpn;
+fi
+
+color -n green "Connecting to $1 ($(country_name $1))... "
+nmcli c u "Mullvad_$1" 1> /dev/null
+color green "Done"
