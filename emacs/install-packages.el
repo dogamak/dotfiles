@@ -8,6 +8,7 @@
 
 (setq dotfiles-package-list
       '(
+	cargo
 	company
 	evil
 	helm
