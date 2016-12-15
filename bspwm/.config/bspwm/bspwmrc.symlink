@@ -2,6 +2,8 @@
 
 sxhkd &
 
+feh --bg-fill ~/.wallpaper
+
 bspc monitor -d Web IM Code Term Alpha Beta Gamma Delta
 
 bspc config border_width         2

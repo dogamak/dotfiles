@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if [[ "$#" -eq 0 ]]
+then
+    ARG="--help"
+fi
+
+case "$ARG" in
+    -h | -help | --help )
+	echo "Script for changing wallpaper";
+	echo "Usage: $0 [--help] <path>";
+	echo ""
+	echo " --help  Display this help screen";
+	echo " <path>  Path of the image file to be used as a wallpaper";
+	;;
+    * )
+	if [[ -f "$1" ]]
+	then
+	    cp "$1" "$HOME/.wallpaper"
+	    feh --bg-fill "$HOME/.wallpaper"
+	else
+	    echo "File does not exist."
+	    exit 1
+	fi
+esac
+	   
