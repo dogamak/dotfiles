@@ -2,9 +2,15 @@
 
 . $HOME/.dotfile_path
 
-if [[ "$#" -gt 0 ]]
+if [[ "$1" == "-" ]]
 then # Called from sxhkd
-    xdg-open "$(rofi -show fb -modi fb:$DOTFILES_ROOT/bin/rofi-find-home.sh -regex)"
+    rofi -show fb -modi fb:$DOTFILES_ROOT/bin/rofi-find-home.sh -regex
 else # Called from rofi
-    find "$HOME"
+    if [[ "$#" -eq 0 ]]
+    then
+	find "$HOME"
+    else
+	coproc ( xdg-open "$@" > /dev/null 2>&1 )
+	exit 0
+    fi
 fi
