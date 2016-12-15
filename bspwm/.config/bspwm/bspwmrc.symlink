@@ -4,7 +4,7 @@ sxhkd &
 
 feh --bg-fill ~/.wallpaper
 
-bspc monitor -d Web IM Code Term Alpha Beta Gamma Delta
+bspc monitor -d Web IM Code Term α β γ δ ε
 
 bspc config border_width         2
 bspc config window_gap          12
@@ -13,9 +13,12 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
-bspc rule -a mplayer2 state=floating
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
+bspc rule -a Chromium desktop='^1'
+bspc rule -a Emacs desktop='^2'
+bspc rule -a mpv state=floating
 bspc rule -a Pavucontrol state=floating
+
+# Spotify, it set's its WM_CLASS _after_ requesting map from BSPWM
+# which uses an empty string by default. Possible workaround using
+# `external_rules_command` if this causes issues.
+bspc rule -a "" desktop='^6'
