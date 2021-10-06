@@ -1,0 +1,34 @@
+#! /bin/sh
+
+sxhkd &
+
+feh --bg-fill ~/.wallpaper
+picom -bcCGfF -o 0.4 -t-5 -l-10 -r10 -I 0.5 -O 0.5 -D5
+
+bspc monitor -d Web IM Code Term α β γ δ ε
+
+# The bar needs to be started after configuring the monitors.
+MONITOR=HDMI-0 setsid polybar example
+
+bspc config border_width         2
+# bspc config window_gap          50
+
+bspc config active_border_color  \#332A25
+bspc config normal_border_color  \#1A1513
+bspc config focused_border_color \#4D3F38
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# bspc rule -a Chromium     desktop='^1'
+# bspc rule -a Qutebrowser  desktop='^1'
+# bspc rule -a Emacs        desktop='^2' state=tiled
+# bspc rule -a Pinentry     state=floating
+# bspc rule -a mpv          state=floating
+# bspc rule -a Pavucontrol  state=floating
+
+# Spotify, it set's its WM_CLASS _after_ requesting map from BSPWM
+# which uses an empty string by default. Possible workaround using
+# `external_rules_command` if this causes issues.
+bspc rule -a "" desktop='^6'
